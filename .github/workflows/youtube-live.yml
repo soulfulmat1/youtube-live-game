@@ -1,0 +1,17 @@
+name: YouTube Live Game Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-game:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check game website
+        run: |
+          echo "Starting GitHub cloud computer..."
+          echo "Checking basketball game..."
+          curl --fail --location https://soulfulmat1.github.io/youtube-live-game/
+          echo "Game website is reachable!"
