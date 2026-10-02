@@ -1557,3 +1557,326 @@ body.ball-inside-basket #hoop-foreground {
 body.ball-inside-basket #hoop-foreground {
     z-index: 800 !important;
 }
+/* ==========================================================
+   FINAL 1920x1080 LIVE ALIGNMENT LOCK
+   GitHub Actions / Chrome Kiosk / YouTube Live
+   ========================================================== */
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Keep the complete game locked to a 16:9 stage */
+#game {
+  position: absolute !important;
+
+  left: 50% !important;
+  top: 50% !important;
+
+  width: 100vw !important;
+  height: 56.25vw !important;
+
+  max-width: 177.777777vh !important;
+  max-height: 100vh !important;
+
+  min-width: 0 !important;
+
+  transform: translate(-50%, -50%) !important;
+
+  overflow: hidden !important;
+}
+
+
+/* ----------------------------------------------------------
+   TEAM COLUMNS
+   Remove viewport-height dependent spacing
+   ---------------------------------------------------------- */
+
+.team-column {
+  position: absolute !important;
+
+  top: 10% !important;
+
+  width: 28% !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+
+  gap: 2.6vh !important;
+
+  z-index: 10 !important;
+}
+
+#left-teams {
+  left: 2% !important;
+}
+
+#right-teams {
+  right: 2% !important;
+}
+
+
+/* ----------------------------------------------------------
+   TEAM CARDS
+   ---------------------------------------------------------- */
+
+.team-card {
+  position: relative !important;
+
+  min-height: 140px !important;
+
+  padding: 14px 18px !important;
+
+  flex-shrink: 0 !important;
+}
+
+
+/* ----------------------------------------------------------
+   ROUND PANEL
+   ---------------------------------------------------------- */
+
+#round-panel {
+  position: absolute !important;
+
+  top: 2.5% !important;
+  left: 50% !important;
+
+  transform: translateX(-50%) !important;
+
+  width: 250px !important;
+
+  z-index: 30 !important;
+}
+
+
+/* ----------------------------------------------------------
+   CHAMPIONSHIP PANEL
+   ---------------------------------------------------------- */
+
+#championship-title {
+  position: absolute !important;
+
+  left: 50% !important;
+  bottom: 3% !important;
+
+  transform: translateX(-50%) !important;
+
+  width: 62% !important;
+}
+
+
+/* ----------------------------------------------------------
+   INTERACTIVE HOOP
+   Preserve the final calibrated hoop size
+   ---------------------------------------------------------- */
+
+#interactive-hoop {
+  position: absolute !important;
+
+  left: 50% !important;
+  top: 49% !important;
+
+  width: min(849px, 56.58vw) !important;
+
+  aspect-ratio: 1 / 1 !important;
+  height: auto !important;
+
+  transform: translate(-50%, -50%) !important;
+
+  pointer-events: none !important;
+
+  z-index: 600 !important;
+}
+
+
+/* Back hoop layer */
+
+#hoop-back {
+  position: absolute !important;
+
+  inset: 0 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  object-fit: contain !important;
+
+  visibility: visible !important;
+
+  z-index: 10 !important;
+}
+
+
+/* Original front layer remains disabled */
+
+#interactive-hoop #hoop-front {
+  visibility: hidden !important;
+}
+
+
+/* ----------------------------------------------------------
+   FRONT HOOP DEPTH LAYER
+   Must use EXACTLY the same geometry as interactive hoop
+   ---------------------------------------------------------- */
+
+#hoop-foreground {
+  position: absolute !important;
+
+  left: 50% !important;
+  top: 49% !important;
+
+  width: min(849px, 56.58vw) !important;
+
+  aspect-ratio: 1 / 1 !important;
+
+  transform: translate(-50%, -50%) !important;
+
+  pointer-events: none !important;
+
+  z-index: 800 !important;
+}
+
+#hoop-foreground img {
+  position: absolute !important;
+
+  inset: 0 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  object-fit: contain !important;
+
+  pointer-events: none !important;
+}
+
+
+/* ----------------------------------------------------------
+   BASKET TARGET
+   Keep current calibrated invisible target
+   ---------------------------------------------------------- */
+
+#basket-target {
+  position: absolute !important;
+
+  left: 50% !important;
+  top: 55% !important;
+
+  width: 12% !important;
+  height: 3% !important;
+
+  transform: translate(-50%, -50%) !important;
+
+  opacity: 0 !important;
+
+  background: transparent !important;
+  border: none !important;
+
+  pointer-events: none !important;
+
+  z-index: 20 !important;
+}
+
+
+/* ----------------------------------------------------------
+   ANIMATION LAYER
+   Lock animations to the game stage instead of browser UI
+   ---------------------------------------------------------- */
+
+#animation-layer {
+  position: absolute !important;
+
+  inset: 0 !important;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  overflow: visible !important;
+
+  pointer-events: none !important;
+
+  z-index: 700 !important;
+}
+
+
+/* ----------------------------------------------------------
+   FINGER
+   ---------------------------------------------------------- */
+
+#finger {
+  position: absolute !important;
+
+  width: 90px !important;
+  height: 90px !important;
+
+  z-index: 99999 !important;
+
+  pointer-events: none !important;
+}
+
+
+/* ----------------------------------------------------------
+   FLYING BALL
+   ---------------------------------------------------------- */
+
+#shooting-ball {
+  position: absolute !important;
+
+  width: 105px !important;
+  height: 105px !important;
+
+  border-radius: 50% !important;
+
+  overflow: hidden !important;
+
+  z-index: 10 !important;
+
+  pointer-events: none !important;
+}
+
+
+/* ----------------------------------------------------------
+   SHOT MESSAGE
+   ---------------------------------------------------------- */
+
+#shot-message {
+  position: absolute !important;
+
+  left: 50% !important;
+  top: 25% !important;
+
+  z-index: 99999 !important;
+
+  pointer-events: none !important;
+}
+
+
+/* ----------------------------------------------------------
+   FLOOR TARGET
+   ---------------------------------------------------------- */
+
+#court-floor-target {
+  position: absolute !important;
+
+  left: 50% !important;
+  top: 91% !important;
+
+  transform: translate(-50%, -50%) !important;
+
+  opacity: 0 !important;
+
+  pointer-events: none !important;
+}
+
+
+/* ----------------------------------------------------------
+   BASKET DEPTH
+   ---------------------------------------------------------- */
+
+body.ball-inside-basket #hoop-foreground {
+  z-index: 800 !important;
+}
