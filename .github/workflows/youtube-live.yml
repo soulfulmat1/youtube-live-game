@@ -6,29 +6,20 @@ on:
 jobs:
   run-game:
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    timeout-minutes: 70
 
     steps:
-      - name: Run basketball game for 30 minutes
+      - name: Run basketball game for 1 hour
         run: |
           echo "Starting Basketball Game..."
-
+          
           google-chrome \
             --headless \
             --no-sandbox \
             --disable-dev-shm-usage \
             --hide-scrollbars \
             --window-size=1920,1080 \
-            --remote-debugging-port=9222 \
-            https://soulfulmat1.github.io/youtube-live-game/ &
+            --virtual-time-budget=3600000 \
+            https://soulfulmat1.github.io/youtube-live-game/
 
-          CHROME_PID=$!
-
-          echo "Chrome started. PID: $CHROME_PID"
-          echo "Keeping basketball game running for 5 minutes..."
-
-          sleep 1800
-
-          echo "5 minute test completed."
-
-          kill $CHROME_PID || true
+          echo "1-hour Basketball Game test completed."
