@@ -23,6 +23,7 @@ jobs:
 
           DISPLAY=:99 google-chrome \
             --no-sandbox \
+              --no-first-run \
             --disable-dev-shm-usage \
             --disable-gpu \
             --autoplay-policy=no-user-gesture-required \
