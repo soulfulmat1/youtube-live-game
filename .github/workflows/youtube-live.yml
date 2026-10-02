@@ -1,25 +1,62 @@
-name: Basketball Game Long Running Test
+name: Basketball Game YouTube Live
 
 on:
   workflow_dispatch:
 
 jobs:
-  run-game:
+  youtube-live:
     runs-on: ubuntu-24.04
-    timeout-minutes: 70
+    timeout-minutes: 350
 
     steps:
-      - name: Run basketball game for 1 hour
+      - name: Install streaming tools
         run: |
-          echo "Starting Basketball Game..."
-          
-          google-chrome \
-            --headless \
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg xvfb
+          ffmpeg -version
+          google-chrome --version
+
+      - name: Start virtual display and game
+        run: |
+          Xvfb :99 -screen 0 1920x1080x24 -ac +extension GLX +render -noreset &
+          sleep 3
+
+          DISPLAY=:99 google-chrome \
             --no-sandbox \
             --disable-dev-shm-usage \
-            --hide-scrollbars \
+            --disable-gpu \
+            --autoplay-policy=no-user-gesture-required \
+            --window-position=0,0 \
             --window-size=1920,1080 \
-            --virtual-time-budget=3600000 \
-            https://soulfulmat1.github.io/youtube-live-game/
+            --start-fullscreen \
+            --kiosk \
+            https://soulfulmat1.github.io/youtube-live-game/ &
 
-          echo "1-hour Basketball Game test completed."
+          sleep 15
+
+          echo "Game browser is running."
+
+      - name: Stream game to YouTube
+        env:
+          YOUTUBE_STREAM_KEY: ${{ secrets.YOUTUBE_STREAM_KEY }}
+        run: |
+          ffmpeg \
+            -f x11grab \
+            -framerate 30 \
+            -video_size 1920x1080 \
+            -i :99.0 \
+            -f lavfi \
+            -i anullsrc=channel_layout=stereo:sample_rate=44100 \
+            -c:v libx264 \
+            -preset veryfast \
+            -tune zerolatency \
+            -pix_fmt yuv420p \
+            -b:v 4500k \
+            -maxrate 4500k \
+            -bufsize 9000k \
+            -g 60 \
+            -c:a aac \
+            -b:a 128k \
+            -ar 44100 \
+            -f flv \
+            "rtmp://a.rtmp.youtube.com/live2/${YOUTUBE_STREAM_KEY}"
