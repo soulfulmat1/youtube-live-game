@@ -12,13 +12,20 @@ jobs:
       - name: Install streaming tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg xvfb
+         sudo apt-get install -y ffmpeg xvfb pulseaudio
           ffmpeg -version
           google-chrome --version
 
       - name: Start virtual display and game
         run: |
           Xvfb :99 -screen 0 1920x1080x24 -ac +extension GLX +render -noreset &
+                    pulseaudio --start
+          sleep 2
+
+          pactl load-module module-null-sink sink_name=GameAudio sink_properties=device.description=GameAudio
+          pactl set-default-sink GameAudio
+
+          echo "Virtual game audio device started."
           sleep 3
 
           DISPLAY=:99 google-chrome \
@@ -46,8 +53,8 @@ jobs:
             -framerate 30 \
             -video_size 1920x1080 \
             -i :99.0 \
-            -f lavfi \
-            -i anullsrc=channel_layout=stereo:sample_rate=44100 \
+            -f pulse \
+            -i GameAudio.monitor \
             -c:v libx264 \
             -preset veryfast \
             -tune zerolatency \
