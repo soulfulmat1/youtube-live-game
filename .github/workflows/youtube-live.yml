@@ -1,21 +1,18 @@
-name: YouTube Live Game Render Test
+name: Basketball Game Continuous Test
 
 on:
   workflow_dispatch:
 
 jobs:
-  render-game:
+  run-game:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 360
 
     steps:
-      - name: Check Chrome
+      - name: Run basketball game
         run: |
-          google-chrome --version
-          echo "Chrome is ready!"
-
-      - name: Render basketball game
-        run: |
+          echo "Starting Basketball Game..."
+          
           google-chrome \
             --headless \
             --no-sandbox \
@@ -23,14 +20,6 @@ jobs:
             --hide-scrollbars \
             --window-size=1920,1080 \
             --virtual-time-budget=15000 \
-            --screenshot=game-screenshot.png \
             https://soulfulmat1.github.io/youtube-live-game/
 
-          echo "Game rendered successfully!"
-          ls -lh game-screenshot.png
-
-      - name: Upload game screenshot
-        uses: actions/upload-artifact@v4
-        with:
-          name: basketball-game-screenshot
-          path: game-screenshot.png
+          echo "Basketball Game test completed."
