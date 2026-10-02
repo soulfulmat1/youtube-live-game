@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>International Basketball Championship</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main id="game">
+
+    <!-- TOP ROUND DISPLAY -->
+    <div id="round-panel">
+      <div class="round-title">ROUND 1</div>
+
+      <div class="round-lights">
+        <span class="light active"></span>
+        <span class="light"></span>
+        <span class="light"></span>
+        <span class="light"></span>
+        <span class="light"></span>
+      </div>
+    </div>
+
+
+    <!-- LEFT TEAM AREA -->
+    <section id="left-teams" class="team-column">
+
+      <div class="team-card has-ball">
+
+  <div class="flag-ball">
+    <img src="assets/flags/us.png" alt="USA">
+    <div class="ball-lines"></div>
+  </div>
+
+  <div class="country-name">USA</div>
+
+  <div class="stats">
+    <div>
+      <small>SHOTS</small>
+      <strong>0/6</strong>
+    </div>
+
+    <div>
+      <small>SCORE</small>
+      <strong>0</strong>
+    </div>
+
+    <div>
+      <small>POINTS</small>
+      <strong>0</strong>
+    </div>
+  </div>
+
+</div>
+        
+      <div class="team-card has-ball">
+
+  <div class="flag-ball">
+    <img src="assets/flags/in.png" alt="India">
+    <div class="ball-lines"></div>
+  </div>
+
+  <div class="country-name">INDIA</div>
+
+  <div class="stats">
+    <div>
+      <small>SHOTS</small>
+      <strong>0/6</strong>
+    </div>
+
+    <div>
+      <small>SCORE</small>
+      <strong>0</strong>
+    </div>
+
+    <div>
+      <small>POINTS</small>
+      <strong>0</strong>
+    </div>
+  </div>
+
+</div>
+
+
+      <div class="team-card has-ball">
+
+  <div class="flag-ball">
+    <img src="assets/flags/de.png" alt="Germany">
+    <div class="ball-lines"></div>
+  </div>
+
+  <div class="country-name">GERMANY</div>
+
+  <div class="stats">
+    <div>
+      <small>SHOTS</small>
+      <strong>0/6</strong>
+    </div>
+
+    <div>
+      <small>SCORE</small>
+      <strong>0</strong>
+    </div>
+
+    <div>
+      <small>POINTS</small>
+      <strong>0</strong>
+    </div>
+  </div>
+
+</div>
+
+    </section>
+
+
+    <!-- CENTER COURT -->
+    <section id="court">
+
+      <div id="backboard">
+        <div id="target-box"></div>
+      </div>
+
+      <div id="rim"></div>
+
+      <div id="net">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+    </section>
+
+
+    <!-- RIGHT TEAM AREA -->
+    <section id="right-teams" class="team-column">
+
+      <div class="team-card has-ball right-ball">
+
+  <div class="flag-ball">
+    <img src="assets/flags/gb.png" alt="UK">
+    <div class="ball-lines"></div>
+  </div>
+
+  <div class="country-name">UK</div>
+
+  <div class="stats">
+    <div>
+      <small>SHOTS</small>
+      <strong>0/6</strong>
+    </div>
+
+    <div>
+      <small>SCORE</small>
+      <strong>0</strong>
+    </div>
+
+    <div>
+      <small>POINTS</small>
+      <strong>0</strong>
+    </div>
+  </div>
+
+</div>
+
+
+      <div class="team-card has-ball right-ball">
+
+  <div class="flag-ball">
+    <img src="assets/flags/bd.png" alt="Bangladesh">
+    <div class="ball-lines"></div>
+  </div>
+
+  <div class="country-name">BANGLADESH</div>
+
+  <div class="stats">
+    <div>
+      <small>SHOTS</small>
+      <strong>0/6</strong>
+    </div>
+
+    <div>
+      <small>SCORE</small>
+      <strong>0</strong>
+    </div>
+
+    <div>
+      <small>POINTS</small>
+      <strong>0</strong>
+    </div>
+  </div>
+
+</div>
+
+
+      <div class="team-card has-ball right-ball">
+
+  <div class="flag-ball">
+    <img src="assets/flags/au.png" alt="Australia">
+    <div class="ball-lines"></div>
+  </div>
+
+  <div class="country-name">AUSTRALIA</div>
+
+  <div class="stats">
+    <div>
+      <small>SHOTS</small>
+      <strong>0/6</strong>
+    </div>
+
+    <div>
+      <small>SCORE</small>
+      <strong>0</strong>
+    </div>
+
+    <div>
+      <small>POINTS</small>
+      <strong>0</strong>
+    </div>
+  </div>
+
+</div>
+
+    </section>
+
+
+    <!-- CHAMPIONSHIP TITLE -->
+    <div id="championship-title">
+      <span>INTERNATIONAL</span>
+      <strong>BASKETBALL CHAMPIONSHIP</strong>
+    </div>
+
+
+        <!-- WINNER SCREEN -->
+    <div id="winner-screen" class="hidden">
+      <div class="winner-label">CHAMPION</div>
+      <div id="winner-country">INDIA</div>
+    </div>
+
+  </main>
+
+<!-- ==================================
+     INTERACTIVE HOOP
+     ================================== -->
+
+<div id="interactive-hoop">
+
+  <img
+    id="hoop-back"
+    src="assets/hoop/hoop-back.png"
+    alt=""
+  >
+
+  <!-- Ball will travel through this zone -->
+  <div id="basket-target"></div>
+
+  <img
+    id="hoop-front"
+    src="assets/hoop/hoop-front.png"
+    alt=""
+  >
+
+</div>
+  <!-- =========================
+       GAME ANIMATION LAYER
+       ========================= -->
+<div id="interactive-hoop">
+
+  <img
+    id="hoop-back"
+    src="assets/hoop/hoop-back.png"
+    alt=""
+  >
+
+  <div id="basket-target"></div>
+
+  <img
+    id="hoop-front"
+    src="assets/hoop/hoop-front.png"
+    alt=""
+  >
+
+</div>
+    </div>
+  <div id="animation-layer">
+
+    <div id="finger">👆</div>
+
+    <div id="shooting-ball">
+      <img
+        id="shooting-ball-image"
+        src="assets/flags/us.png"
+        alt="Ball"
+      >
+      <div class="shooting-ball-lines"></div>
+    </div>
+
+    <div id="shot-message"></div>
+<div id="court-floor-target"></div>
+  </div>
+<!-- FOREGROUND HOOP LAYER -->
+<div id="hoop-foreground">
+  <img
+    src="assets/hoop/hoop-front.png"
+    alt=""
+  >
+</div>
+
+  <!-- JAVASCRIPT MUST BE LAST -->
+  <script src="game.js"></script>
+
+</body>
+</html>

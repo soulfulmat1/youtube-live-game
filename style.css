@@ -1,0 +1,1559 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #020713;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#game {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-width: 1000px;
+  color: white;
+
+  background:
+    linear-gradient(
+      rgba(0, 8, 25, 0.18),
+      rgba(0, 5, 18, 0.28)
+    ),
+    url("assets/images/stadium-bg.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+#game::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(
+    circle at 50% 45%,
+    transparent 25%,
+    rgba(0, 5, 18, 0.12) 60%,
+    rgba(0, 3, 12, 0.45) 100%
+  );
+
+  pointer-events: none;
+  z-index: 1;
+}
+}
+
+
+/* ROUND */
+
+#round-panel {
+  position: absolute;
+
+  top: 2%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 260px;
+
+  padding: 10px;
+
+  text-align: center;
+
+  background: linear-gradient(#15253b, #03070d);
+
+  border: 3px solid #f5b73b;
+  border-radius: 12px;
+
+  box-shadow:
+    0 0 12px #f5b73b,
+    0 8px 25px black;
+
+  z-index: 20;
+}
+
+.round-title {
+  font-size: 27px;
+  font-weight: 900;
+  color: #ffd76b;
+}
+
+.round-lights {
+  margin-top: 7px;
+}
+
+.light {
+  display: inline-block;
+
+  width: 18px;
+  height: 18px;
+
+  margin: 0 6px;
+
+  border-radius: 50%;
+
+  background: #45505e;
+
+  box-shadow: inset 0 0 5px black;
+}
+
+.light.active {
+  background: #ffb000;
+
+  box-shadow:
+    0 0 12px #ffb000,
+    0 0 20px #ff6a00;
+}
+
+
+/* TEAM COLUMNS */
+
+.team-column {
+  position: absolute;
+
+  top: 10%;
+
+  width: 28%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 5vh;
+
+  z-index: 10;
+}
+
+#left-teams {
+  left: 2%;
+}
+
+#right-teams {
+  right: 2%;
+}
+
+
+/* TEAM CARD */
+
+.team-card {
+  min-height: 145px;
+
+  padding: 14px 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(18, 43, 70, 0.98),
+      rgba(2, 9, 19, 0.98)
+    );
+
+  border: 2px solid #6fd5ff;
+  border-radius: 12px;
+
+  box-shadow:
+    0 0 8px #159cff,
+    0 10px 25px rgba(0,0,0,.7);
+}
+
+.country-name {
+  margin-bottom: 10px;
+
+  font-size: 28px;
+  font-weight: 900;
+
+  text-align: center;
+}
+
+.stats {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  border: 2px solid #d52331;
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  background: rgba(0,0,0,.65);
+}
+
+.stats div {
+  padding: 8px 4px;
+
+  text-align: center;
+
+  border-right: 1px solid #d52331;
+}
+
+.stats div:last-child {
+  border-right: none;
+}
+
+.stats small {
+  display: block;
+
+  margin-bottom: 4px;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  color: #e8edf5;
+}
+
+.stats strong {
+  font-size: 30px;
+  color: #39ef9a;
+}
+
+.stats div:last-child strong {
+  color: #ffd84a;
+}
+
+
+/* CENTER COURT */
+
+#court {
+  position: absolute;
+
+  left: 50%;
+  top: 27%;
+
+  transform: translateX(-50%);
+
+  width: 30%;
+  height: 45%;
+}
+
+
+/* BACKBOARD */
+
+#backboard {
+  position: absolute;
+
+  width: 280px;
+  height: 175px;
+
+  left: 50%;
+  top: 0;
+
+  transform: translateX(-50%);
+
+  border: 8px solid #dbe9ff;
+
+  background: rgba(155, 196, 230, .16);
+
+  box-shadow:
+    0 0 8px white,
+    0 0 25px #298cff;
+}
+
+#target-box {
+  position: absolute;
+
+  width: 90px;
+  height: 70px;
+
+  left: 50%;
+  bottom: 20px;
+
+  transform: translateX(-50%);
+
+  border: 5px solid white;
+}
+
+
+/* RIM */
+
+#rim {
+  position: absolute;
+
+  width: 105px;
+  height: 20px;
+
+  left: 50%;
+  top: 140px;
+
+  transform: translateX(-50%);
+
+  border: 8px solid #ff5b21;
+  border-radius: 50%;
+
+  z-index: 4;
+
+  box-shadow: 0 0 12px #ff6a00;
+}
+
+
+/* NET */
+
+#net {
+  position: absolute;
+
+  left: 50%;
+  top: 160px;
+
+  transform: translateX(-50%);
+
+  width: 75px;
+  height: 90px;
+
+  border-left: 3px solid white;
+  border-right: 3px solid white;
+  border-bottom: 3px solid white;
+
+  clip-path: polygon(0 0, 100% 0, 72% 100%, 28% 100%);
+}
+
+#net span {
+  position: relative;
+
+  display: inline-block;
+
+  width: 10px;
+  height: 100%;
+
+  margin-left: 1px;
+
+  border-right: 2px solid rgba(255,255,255,.8);
+}
+
+
+/* BOTTOM TITLE */
+
+#championship-title {
+  position: absolute;
+
+  left: 50%;
+  bottom: 3%;
+
+  transform: translateX(-50%);
+
+  width: 62%;
+
+  padding: 12px 30px;
+
+  text-align: center;
+
+  background:
+    linear-gradient(
+      180deg,
+      #18345a,
+      #030711
+    );
+
+  border: 3px solid #e6ad39;
+  border-radius: 18px;
+
+  box-shadow:
+    0 0 15px #ff9b16,
+    0 15px 30px black;
+}
+
+#championship-title span {
+  display: block;
+
+  font-size: 24px;
+  font-weight: 900;
+
+  letter-spacing: 8px;
+}
+
+#championship-title strong {
+  display: block;
+
+  font-size: clamp(25px, 3vw, 52px);
+
+  color: #ffbd37;
+
+  text-shadow:
+    0 3px 0 #9b3a00,
+    0 0 12px #ff8a00;
+}
+
+
+/* WINNER OVERLAY */
+
+#winner-screen {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 100;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 5, 18, .82);
+}
+
+#winner-screen.hidden {
+  display: none;
+}
+
+.winner-label {
+  font-size: 40px;
+  font-weight: 900;
+
+  color: #ffd85a;
+
+  letter-spacing: 10px;
+}
+
+#winner-country {
+  margin-top: 15px;
+
+  font-size: 100px;
+  font-weight: 900;
+
+  color: white;
+
+  text-shadow:
+    0 0 15px #2c9cff,
+    0 0 40px #ff9b00;
+}
+/* =========================================
+   VISUAL V2.1 - STADIUM ALIGNMENT OVERRIDES
+   ========================================= */
+
+/* Keep all UI above stadium background */
+.team-column,
+#round-panel,
+#championship-title {
+  z-index: 10;
+}
+
+/* ---------- ROUND PANEL ---------- */
+
+#round-panel {
+  position: absolute;
+  top: 2.5%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 250px;
+  padding: 10px 15px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(18, 39, 65, 0.96),
+      rgba(2, 8, 18, 0.98)
+    );
+
+  border: 3px solid #ffba32;
+  border-radius: 12px;
+
+  box-shadow:
+    0 0 10px rgba(255, 174, 32, 0.9),
+    0 8px 25px rgba(0,0,0,0.8);
+
+  z-index: 30;
+}
+
+
+/* ---------- TEAM POSITIONS ---------- */
+
+.team-column {
+  top: 10%;
+  width: 28%;
+  gap: 5vh;
+}
+
+#left-teams {
+  left: 2%;
+}
+
+#right-teams {
+  right: 2%;
+}
+
+
+/* ---------- MORE PROFESSIONAL TEAM CARD ---------- */
+
+.team-card {
+  position: relative;
+
+  min-height: 140px;
+  padding: 14px 18px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(19, 49, 82, 0.96) 0%,
+      rgba(5, 18, 34, 0.97) 55%,
+      rgba(1, 8, 17, 0.98) 100%
+    );
+
+  border: 2px solid #63d7ff;
+  border-radius: 12px;
+
+  box-shadow:
+    0 0 8px rgba(39, 184, 255, 0.9),
+    0 0 22px rgba(0, 122, 255, 0.25),
+    0 12px 25px rgba(0,0,0,0.65),
+    inset 0 1px 1px rgba(255,255,255,0.25);
+
+  overflow: visible;
+}
+
+
+/* highlight across top */
+
+.team-card::before {
+  content: "";
+  position: absolute;
+
+  left: 12px;
+  right: 12px;
+  top: 0;
+
+  height: 2px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.85),
+    transparent
+  );
+}
+
+
+/* Country text */
+
+.country-name {
+  color: #ffffff;
+
+  font-size: 27px;
+  font-weight: 900;
+
+  text-align: center;
+
+  text-shadow:
+    0 2px 3px #000,
+    0 0 8px rgba(255,255,255,.25);
+}
+
+
+/* Stats */
+
+.stats {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(2,8,15,.96),
+      rgba(0,3,8,.98)
+    );
+
+  border: 2px solid #ff283c;
+
+  box-shadow:
+    inset 0 0 12px rgba(0,0,0,.8),
+    0 0 6px rgba(255,0,35,.25);
+}
+
+
+/* ---------- REMOVE THE OLD CSS HOOP ---------- */
+
+/*
+The stadium image already contains our professional hoop.
+The HTML hoop remains in the document but becomes invisible.
+*/
+
+#court {
+  pointer-events: none;
+}
+
+#backboard,
+#rim,
+#net {
+  display: none;
+}
+
+
+/* ---------- CHAMPIONSHIP PANEL ---------- */
+
+#championship-title {
+  bottom: 3%;
+
+  width: 62%;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(24, 58, 98, .96),
+      rgba(3, 10, 23, .98)
+    );
+
+  border: 3px solid #e7ac34;
+
+  box-shadow:
+    0 0 12px rgba(255, 170, 25, .75),
+    0 15px 30px rgba(0,0,0,.75);
+}
+/* ==================================
+   COUNTRY FLAG BALL
+   ================================== */
+
+.has-ball {
+  padding-left: 105px;
+}
+
+.flag-ball {
+  position: absolute;
+
+  left: -38px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: 125px;
+  height: 125px;
+
+  border-radius: 50%;
+
+  overflow: hidden;
+
+  border: 4px solid rgba(255,255,255,.75);
+
+  background: #111;
+
+  box-shadow:
+    -8px 12px 18px rgba(0,0,0,.7),
+    0 0 12px rgba(80,190,255,.8),
+    inset -20px -15px 25px rgba(0,0,0,.65),
+    inset 15px 10px 18px rgba(255,255,255,.35);
+
+  z-index: 15;
+}
+
+.flag-ball img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transform: scale(1.18);
+}
+
+
+/* spherical lighting */
+
+.flag-ball::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 30% 22%,
+      rgba(255,255,255,.65),
+      transparent 22%
+    ),
+    radial-gradient(
+      circle at 68% 72%,
+      transparent 35%,
+      rgba(0,0,0,.72) 100%
+    );
+
+  z-index: 3;
+
+  pointer-events: none;
+}
+
+
+/* Basketball curved seam */
+
+.flag-ball::after {
+  content: "";
+
+  position: absolute;
+
+  width: 145%;
+  height: 55%;
+
+  left: -22%;
+  top: 20%;
+
+  border: 3px solid rgba(10,10,10,.75);
+  border-radius: 50%;
+
+  transform: rotate(-18deg);
+
+  z-index: 4;
+
+  pointer-events: none;
+}
+
+
+.ball-lines {
+  position: absolute;
+  inset: 0;
+
+  z-index: 4;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.ball-lines::before {
+  content: "";
+
+  position: absolute;
+
+  left: 49%;
+  top: -10%;
+
+  width: 3px;
+  height: 120%;
+
+  background: rgba(10,10,10,.75);
+
+  transform: rotate(15deg);
+}
+
+.ball-lines::after {
+  content: "";
+
+  position: absolute;
+
+  left: 13%;
+  top: -7%;
+
+  width: 72%;
+  height: 112%;
+
+  border: 3px solid rgba(10,10,10,.72);
+  border-radius: 50%;
+
+  transform: rotate(32deg);
+}
+/* RIGHT-SIDE COUNTRY BALL */
+
+.right-ball {
+  padding-left: 18px;
+  padding-right: 105px;
+}
+
+.right-ball .flag-ball {
+  left: auto;
+  right: -38px;
+}
+/* ================================
+   GAME ANIMATION SYSTEM
+   ================================ */
+
+#animation-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+}
+
+#finger {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  font-size: 58px;
+
+  opacity: 0;
+
+  transform: translate(-50%, -50%) scale(1);
+
+  filter: drop-shadow(0 5px 5px rgba(0,0,0,.7));
+
+  z-index: 90;
+
+  transition:
+    left .65s cubic-bezier(.2,.8,.2,1),
+    top .65s cubic-bezier(.2,.8,.2,1),
+    transform .18s ease,
+    opacity .25s ease;
+}
+
+#shooting-ball {
+  position: fixed;
+
+  width: 92px;
+  height: 92px;
+
+  left: 0;
+  top: 0;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  opacity: 0;
+
+  transform: translate(-50%, -50%);
+
+  border: 3px solid rgba(255,255,255,.7);
+
+  box-shadow:
+    0 10px 18px rgba(0,0,0,.65),
+    inset -15px -12px 20px rgba(0,0,0,.55),
+    inset 12px 8px 14px rgba(255,255,255,.35);
+
+  z-index: 85;
+}
+
+#shooting-ball img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.18);
+}
+
+#shooting-ball::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 28% 20%,
+      rgba(255,255,255,.55),
+      transparent 22%
+    ),
+    radial-gradient(
+      circle at 70% 75%,
+      transparent 35%,
+      rgba(0,0,0,.6)
+    );
+}
+
+.shooting-ball-lines {
+  position: absolute;
+  inset: 0;
+
+  border-radius: 50%;
+
+  z-index: 5;
+}
+
+.shooting-ball-lines::before {
+  content: "";
+
+  position: absolute;
+
+  left: 49%;
+  top: -10%;
+
+  width: 3px;
+  height: 120%;
+
+  background: rgba(10,10,10,.7);
+
+  transform: rotate(15deg);
+}
+
+#shot-message {
+  position: fixed;
+
+  left: 50%;
+  top: 25%;
+
+  transform: translate(-50%, -50%) scale(.7);
+
+  opacity: 0;
+
+  font-size: 55px;
+  font-weight: 900;
+
+  color: white;
+
+  text-shadow:
+    0 3px 4px black,
+    0 0 15px #ffad22;
+
+  z-index: 95;
+
+  transition:
+    opacity .2s ease,
+    transform .25s ease;
+}
+
+#shot-message.show {
+  opacity: 1;
+
+  transform:
+    translate(-50%, -50%)
+    scale(1);
+}
+
+
+/* ACTIVE COUNTRY */
+
+.team-card.active-team {
+  border-color: #ffd54a;
+
+  box-shadow:
+    0 0 12px #ffb000,
+    0 0 32px rgba(255,165,0,.8),
+    0 12px 25px rgba(0,0,0,.7);
+
+  transform: scale(1.025);
+}
+/* =========================================
+   SHOOTING SYSTEM FIX V2
+   ========================================= */
+
+/* Finger: use a visible hand cursor */
+#finger {
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 72px;
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 62px;
+  line-height: 1;
+
+  opacity: 0;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 9999;
+
+  filter:
+    drop-shadow(0 5px 3px rgba(0,0,0,.8))
+    drop-shadow(0 0 8px rgba(255,255,255,.35));
+
+  transition:
+    left .75s cubic-bezier(.22,.8,.25,1),
+    top .75s cubic-bezier(.22,.8,.25,1),
+    opacity .2s ease,
+    transform .15s ease;
+}
+
+
+/* Flying ball MUST always remain circular */
+
+#shooting-ball {
+  position: fixed;
+
+  width: 105px;
+  height: 105px;
+
+  left: 0;
+  top: 0;
+
+  border-radius: 50%;
+
+  overflow: hidden;
+
+  opacity: 0;
+
+  z-index: 9990;
+
+  border: 4px solid rgba(255,255,255,.75);
+
+  background: #111;
+
+  box-shadow:
+    0 10px 20px rgba(0,0,0,.75),
+    0 0 14px rgba(80,190,255,.6),
+    inset -20px -15px 25px rgba(0,0,0,.65),
+    inset 15px 10px 18px rgba(255,255,255,.30);
+
+  transform:
+    translate(-50%, -50%);
+
+  pointer-events: none;
+}
+
+
+/* Rectangle flag becomes texture inside circle */
+
+#shooting-ball-image {
+  position: absolute;
+
+  width: 135%;
+  height: 135%;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  object-fit: cover;
+
+  border-radius: 50%;
+}
+
+
+/* spherical light */
+
+#shooting-ball::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 28% 20%,
+      rgba(255,255,255,.65),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at 72% 76%,
+      transparent 38%,
+      rgba(0,0,0,.68) 100%
+    );
+
+  z-index: 4;
+}
+
+
+/* Basketball seam */
+
+#shooting-ball::after {
+  content: "";
+
+  position: absolute;
+
+  width: 145%;
+  height: 55%;
+
+  left: -22%;
+  top: 20%;
+
+  border: 3px solid rgba(8,8,8,.78);
+  border-radius: 50%;
+
+  transform: rotate(-18deg);
+
+  z-index: 5;
+}
+
+
+/* Ball press feedback */
+
+.flag-ball.ball-pressed {
+  transform:
+    translateY(-50%)
+    scale(.86);
+
+  filter: brightness(1.25);
+}
+
+.right-ball .flag-ball.ball-pressed {
+  transform:
+    translateY(-50%)
+    scale(.86);
+}
+/* ==================================
+   ANIMATION VISIBILITY FINAL FIX
+   ================================== */
+
+#animation-layer {
+  position: fixed !important;
+  inset: 0 !important;
+
+  width: 100vw !important;
+  height: 100vh !important;
+
+  z-index: 99990 !important;
+
+  pointer-events: none !important;
+
+  overflow: visible !important;
+}
+
+
+#finger {
+  position: fixed !important;
+
+  width: 90px !important;
+  height: 90px !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 75px !important;
+
+  visibility: visible;
+
+  z-index: 99999 !important;
+
+  pointer-events: none;
+}
+
+
+#shooting-ball {
+  position: fixed !important;
+
+  width: 105px !important;
+  height: 105px !important;
+
+  display: block;
+
+  border-radius: 50% !important;
+  overflow: hidden !important;
+
+  z-index: 99998 !important;
+
+  pointer-events: none;
+}
+
+
+#shooting-ball-image {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 140%;
+  height: 140%;
+
+  object-fit: cover;
+
+  transform:
+    translate(-50%, -50%);
+
+  border-radius: 50%;
+}
+
+
+#shot-message {
+  position: fixed !important;
+
+  z-index: 99999 !important;
+
+  pointer-events: none;
+}
+/* ==========================================
+   REAL INTERACTIVE BASKETBALL HOOP
+   ========================================== */
+
+
+  background:
+    repeating-linear-gradient(
+      -65deg,
+      transparent 0px,
+      transparent 11px,
+      rgba(245,250,255,.8) 12px,
+      rgba(245,250,255,.8) 14px,
+      transparent 15px
+    );
+
+  z-index: 48;
+
+  opacity: .75;
+}
+/* =========================================
+   INTERACTIVE HOOP SYSTEM
+   ========================================= */
+
+#interactive-hoop {
+    position: fixed !important;
+
+    left: 50% !important;
+    top: 49% !important;
+
+    width: 285px !important;
+    height: 285px !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    pointer-events: none !important;
+    z-index: 600 !important;
+}
+
+/* BOTH IMAGES MUST ALIGN PERFECTLY */
+
+#hoop-back,
+#hoop-front {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  pointer-events: none;
+}
+
+
+/* BACK LAYER */
+
+#hoop-back {
+  z-index: 10;
+}
+
+
+/* FRONT OCCLUSION LAYER */
+
+#hoop-front {
+  z-index: 30;
+}
+
+
+/* INVISIBLE BASKET TARGET */
+
+/* =========================================
+   FINAL BASKET TARGET OVERRIDE
+   ========================================= */
+
+#basket-target {
+    position: absolute !important;
+
+    left: 50% !important;
+    top: 55% !important;
+
+    width: 27% !important;
+    height: 5% !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    opacity: 0 !important;
+    pointer-events: none !important;
+    z-index: 20 !important;
+}
+#interactive-hoop {
+  z-index: 600 !important;
+}
+
+#hoop-back {
+  z-index: 10;
+}
+
+#hoop-front {
+  z-index: 30;
+}
+
+/*
+Animation layer itself stays above the
+stadium, but individual ball layering
+will be controlled during basket phase.
+*/
+#animation-layer {
+  z-index: 700 !important;
+}
+#court-floor-target {
+  position: fixed;
+
+  left: 50%;
+  top: 91%;
+
+  width: 10px;
+  height: 10px;
+
+  transform: translate(-50%, -50%);
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+/* =========================================
+   HOOP SIZE + POSITION FINAL CALIBRATION
+   ========================================= */
+
+#interactive-hoop {
+    position: fixed !important;
+
+    left: 50% !important;
+    top: 49% !important;
+
+    /* Smaller hoop so it does not cover team cards */
+    width: 235px !important;
+    height: 235px !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    pointer-events: none !important;
+    z-index: 600 !important;
+}
+
+
+/* Both PNG layers remain perfectly aligned */
+
+#hoop-back,
+#hoop-front {
+    position: absolute !important;
+
+    left: 0 !important;
+    top: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: contain !important;
+
+    pointer-events: none !important;
+}
+
+
+/* Exact invisible opening of basket */
+
+#basket-target {
+    position: absolute !important;
+
+    left: 50% !important;
+
+    /*
+      IMPORTANT:
+      This target is slightly below
+      the visible orange rim center.
+    */
+    top: 55% !important;
+
+    width: 62px !important;
+    height: 12px !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    opacity: 0 !important;
+
+    pointer-events: none !important;
+
+    z-index: 20 !important;
+}
+#interactive-hoop {
+    position: fixed !important;
+
+    left: 50% !important;
+    top: 49% !important;
+
+    /* Large, but protected from team cards */
+    width: min(849px, 56.58vw) !important;
+    aspect-ratio: 1 / 1;
+
+    height: auto !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    pointer-events: none !important;
+    z-index: 600 !important;
+}
+
+#hoop-back,
+#hoop-front {
+    position: absolute !important;
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: contain !important;
+}
+/* TEMPORARY RIM TARGET DEBUG */
+
+#basket-target {
+    opacity: 1 !important;
+
+    background: rgba(0, 255, 0, 0.75) !important;
+    border: 3px solid yellow !important;
+
+    border-radius: 50% !important;
+
+    z-index: 99999 !important;
+}
+#basket-target {
+  opacity: 0 !important;
+  background: transparent !important;
+  border: none !important;
+}
+#basket-target {
+    opacity: 1 !important;
+    background: #00ff00 !important;
+    border: 4px solid yellow !important;
+    border-radius: 50% !important;
+
+    width: 12% !important;
+    height: 3% !important;
+
+    z-index: 999999 !important;
+}
+#basket-target {
+    opacity: 0 !important;
+    background: transparent !important;
+    border: none !important;
+}
+/* =========================================
+   HOOP FOREGROUND DEPTH LAYER
+   ========================================= */
+
+#hoop-foreground {
+    position: fixed;
+
+    left: 50%;
+    top: 49%;
+
+    width: min(849px, 56.58vw);
+    aspect-ratio: 1 / 1;
+
+    transform: translate(-50%, -50%);
+
+    pointer-events: none;
+
+    /* ABOVE flying basketball */
+    z-index: 900;
+}
+
+#hoop-foreground img {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    pointer-events: none;
+}
+/* =========================================
+   SMART HOOP DEPTH SYSTEM
+   ========================================= */
+
+/* Normally foreground stays BEHIND the ball */
+#hoop-foreground {
+    z-index: 650 !important;
+}
+
+/* Animation/ball layer stays in front */
+#animation-layer {
+    z-index: 700 !important;
+}
+
+/*
+Only while a successful ball is actually
+passing through the rim/net, bring the
+foreground rim in front of the ball.
+*/
+body.ball-inside-basket #hoop-foreground {
+    z-index: 900 !important;
+}
+/* =========================================
+   FINAL RIM OCCLUSION FIX
+   ========================================= */
+
+/* Default: flying ball is above hoop foreground */
+#hoop-foreground {
+    z-index: 650 !important;
+}
+
+/* Ball animation layer */
+#animation-layer {
+    z-index: 700 !important;
+}
+
+/* The instant the ball enters the basket,
+   front rim/net must cover the ball */
+body.ball-inside-basket #hoop-foreground {
+    z-index: 99999 !important;
+}
+/* ==================================================
+   TRUE 3-LAYER BASKET DEPTH SYSTEM
+   ================================================== */
+
+
+/* 1. BACK HALF OF HOOP */
+#interactive-hoop {
+    z-index: 600 !important;
+}
+
+
+/*
+   The original front image inside interactive-hoop
+   must NOT act as foreground anymore.
+*/
+#interactive-hoop #hoop-front {
+    visibility: hidden !important;
+}
+
+
+/* Back PNG remains visible */
+#interactive-hoop #hoop-back {
+    visibility: visible !important;
+    z-index: 10 !important;
+}
+
+
+/* 2. FLYING BALL */
+#animation-layer {
+    z-index: 700 !important;
+}
+
+
+/*
+   Do not allow old inline ball z-index values
+   to escape the animation layer.
+*/
+#shooting-ball {
+    z-index: 10 !important;
+}
+
+
+/* 3. SEPARATE FRONT PNG */
+#hoop-foreground {
+    position: fixed !important;
+
+    left: 50% !important;
+    top: 49% !important;
+
+    width: min(849px, 56.58vw) !important;
+    aspect-ratio: 1 / 1 !important;
+
+    transform:
+        translate(-50%, -50%) !important;
+
+    pointer-events: none !important;
+
+    z-index: 800 !important;
+}
+
+
+/* Front PNG fills exact same hoop dimensions */
+#hoop-foreground img {
+    position: absolute !important;
+
+    inset: 0 !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    object-fit: contain !important;
+
+    pointer-events: none !important;
+}
+
+
+/*
+   IMPORTANT:
+   Foreground stays in front permanently.
+   JavaScript no longer needs to move
+   the foreground layer.
+*/
+body.ball-inside-basket #hoop-foreground {
+    z-index: 800 !important;
+}
