@@ -37,8 +37,6 @@ jobs:
             --autoplay-policy=no-user-gesture-required \
             --window-position=0,0 \
             --window-size=1920,1080 \
-            --start-fullscreen \
-            --kiosk \
             https://soulfulmat1.github.io/youtube-live-game/ &
 
           sleep 15
