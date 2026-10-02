@@ -72,7 +72,12 @@ document.addEventListener(
   startStadiumSound,
   { once: true }
 );
-
+// Auto-start stadium ambience for cloud/live mode
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    startStadiumSound();
+  }, 2000);
+});
 // ======================================================
 // GAME AUDIO UNLOCK SYSTEM
 // ======================================================
