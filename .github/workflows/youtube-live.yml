@@ -1,17 +1,36 @@
-name: YouTube Live Game Test
+name: YouTube Live Game Render Test
 
 on:
   workflow_dispatch:
 
 jobs:
-  test-game:
-    runs-on: ubuntu-latest
+  render-game:
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
 
     steps:
-      - name: Check game website
+      - name: Check Chrome
         run: |
-          echo "Starting GitHub cloud computer..."
-          echo "Checking basketball game..."
-          curl --fail --location https://soulfulmat1.github.io/youtube-live-game/
-          echo "Game website is reachable!"
+          google-chrome --version
+          echo "Chrome is ready!"
+
+      - name: Render basketball game
+        run: |
+          google-chrome \
+            --headless \
+            --no-sandbox \
+            --disable-dev-shm-usage \
+            --hide-scrollbars \
+            --window-size=1920,1080 \
+            --virtual-time-budget=15000 \
+            --screenshot=game-screenshot.png \
+            https://soulfulmat1.github.io/youtube-live-game/
+
+          echo "Game rendered successfully!"
+          ls -lh game-screenshot.png
+
+      - name: Upload game screenshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: basketball-game-screenshot
+          path: game-screenshot.png
