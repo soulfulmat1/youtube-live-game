@@ -6,10 +6,10 @@ on:
 jobs:
   run-game:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 40
 
     steps:
-      - name: Run basketball game for 5 minutes
+      - name: Run basketball game for 30 minutes
         run: |
           echo "Starting Basketball Game..."
 
@@ -27,7 +27,7 @@ jobs:
           echo "Chrome started. PID: $CHROME_PID"
           echo "Keeping basketball game running for 5 minutes..."
 
-          sleep 300
+          sleep 1800
 
           echo "5 minute test completed."
 
