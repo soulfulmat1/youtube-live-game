@@ -12,25 +12,26 @@ jobs:
       - name: Install streaming tools
         run: |
           sudo apt-get update
-         sudo apt-get install -y ffmpeg xvfb pulseaudio
+          sudo apt-get install -y ffmpeg xvfb pulseaudio
           ffmpeg -version
           google-chrome --version
 
       - name: Start virtual display and game
         run: |
-                    Xvfb :99 -screen 0 1920x1080x24 -ac +extension GLX +render -noreset &
-                    pulseaudio --start
+          Xvfb :99 -screen 0 1920x1080x24 -ac +extension GLX +render -noreset &
+          
+          pulseaudio --start
           sleep 2
-
+          
           pactl load-module module-null-sink sink_name=GameAudio sink_properties=device.description=GameAudio
           pactl set-default-sink GameAudio
-
+          
           echo "Virtual game audio device started."
           sleep 3
 
           DISPLAY=:99 google-chrome \
             --no-sandbox \
-              --no-first-run \
+            --no-first-run \
             --disable-dev-shm-usage \
             --disable-gpu \
             --autoplay-policy=no-user-gesture-required \
@@ -41,13 +42,8 @@ jobs:
             https://soulfulmat1.github.io/youtube-live-game/ &
 
           sleep 15
-
           echo "Game browser is running."
 
-      - name: Stream game to YouTube
-        env:
-          YOUTUBE_STREAM_KEY: ${{ secrets.YOUTUBE_STREAM_KEY }}
-        run: |
           ffmpeg \
             -f x11grab \
             -framerate 30 \
@@ -59,12 +55,13 @@ jobs:
             -preset veryfast \
             -tune zerolatency \
             -pix_fmt yuv420p \
-            -b:v 4500k \
-            -maxrate 4500k \
-            -bufsize 9000k \
+            -b:v 6800k \
+            -maxrate 6800k \
+            -bufsize 13600k \
             -g 60 \
             -c:a aac \
             -b:a 128k \
             -ar 44100 \
+            -ac 2 \
             -f flv \
-            "rtmp://a.rtmp.youtube.com/live2/${YOUTUBE_STREAM_KEY}"
+            "rtmp://a.rtmp.youtube.com/live2/${{ secrets.YOUTUBE_STREAM_KEY }}"
