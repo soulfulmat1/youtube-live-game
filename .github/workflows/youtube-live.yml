@@ -3,6 +3,10 @@ name: Basketball Game YouTube Live
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  actions: write
+
 jobs:
   youtube-live:
     runs-on: ubuntu-24.04
@@ -17,15 +21,17 @@ jobs:
           google-chrome --version
 
       - name: Start virtual display and game
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           Xvfb :99 -screen 0 1920x1080x24 -ac +extension GLX +render -noreset &
-          
+
           pulseaudio --start
           sleep 2
-          
+
           pactl load-module module-null-sink sink_name=GameAudio sink_properties=device.description=GameAudio
           pactl set-default-sink GameAudio
-          
+
           echo "Virtual game audio device started."
           sleep 3
 
@@ -37,13 +43,41 @@ jobs:
             --autoplay-policy=no-user-gesture-required \
             --window-position=0,0 \
             --window-size=1920,1080 \
-                        --kiosk \
+            --kiosk \
             https://soulfulmat1.github.io/youtube-live-game/ &
 
           sleep 15
           echo "Game browser is running."
 
-                   echo "Starting YouTube streaming with automatic reconnect..."
+          # ==================================================
+          # AUTOMATIC NEXT WORKFLOW
+          # Start another run before this runner reaches
+          # GitHub's maximum execution window.
+          # ==================================================
+
+          (
+            echo "Automatic workflow restart timer started."
+
+            sleep 20700
+
+            echo "Requesting next YouTube Live workflow..."
+
+            curl --fail-with-body \
+              --request POST \
+              --url "https://api.github.com/repos/${{ github.repository }}/actions/workflows/youtube-live.yml/dispatches" \
+              --header "Accept: application/vnd.github+json" \
+              --header "Authorization: Bearer $GH_TOKEN" \
+              --header "X-GitHub-Api-Version: 2026-03-10" \
+              --data '{"ref":"main"}'
+
+            echo "Next workflow dispatch requested."
+          ) &
+
+          # ==================================================
+          # FFMPEG STREAM + AUTOMATIC RECONNECT
+          # ==================================================
+
+          echo "Starting YouTube streaming with automatic reconnect..."
 
           while true; do
             echo "Starting FFmpeg at $(date)"
