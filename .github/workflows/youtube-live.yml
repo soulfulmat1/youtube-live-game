@@ -43,24 +43,37 @@ jobs:
           sleep 15
           echo "Game browser is running."
 
-          ffmpeg \
-            -f x11grab \
-            -framerate 30 \
-            -video_size 1920x1080 \
-            -i :99.0 \
-            -f pulse \
-            -i GameAudio.monitor \
-            -c:v libx264 \
-            -preset veryfast \
-            -tune zerolatency \
-            -pix_fmt yuv420p \
-            -b:v 6800k \
-            -maxrate 6800k \
-            -bufsize 13600k \
-            -g 60 \
-            -c:a aac \
-            -b:a 128k \
-            -ar 44100 \
-            -ac 2 \
-            -f flv \
-            "rtmp://a.rtmp.youtube.com/live2/${{ secrets.YOUTUBE_STREAM_KEY }}"
+                   echo "Starting YouTube streaming with automatic reconnect..."
+
+          while true; do
+            echo "Starting FFmpeg at $(date)"
+
+            ffmpeg \
+              -f x11grab \
+              -framerate 30 \
+              -video_size 1920x1080 \
+              -i :99.0 \
+              -f pulse \
+              -i GameAudio.monitor \
+              -c:v libx264 \
+              -preset veryfast \
+              -tune zerolatency \
+              -pix_fmt yuv420p \
+              -b:v 6800k \
+              -maxrate 6800k \
+              -bufsize 13600k \
+              -g 60 \
+              -c:a aac \
+              -b:a 128k \
+              -ar 44100 \
+              -ac 2 \
+              -f flv \
+              "rtmp://a.rtmp.youtube.com/live2/${{ secrets.YOUTUBE_STREAM_KEY }}"
+
+            EXIT_CODE=$?
+
+            echo "FFmpeg stopped with exit code $EXIT_CODE"
+            echo "Waiting 10 seconds before reconnecting..."
+
+            sleep 10
+          done
